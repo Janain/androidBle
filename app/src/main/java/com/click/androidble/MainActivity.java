@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        initArgs();
+
         mListView = findViewById(R.id.listView);
         scanBt = findViewById(R.id.bt_scan);
         displayTv = findViewById(R.id.tv_ble);
@@ -49,10 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scanBt.setOnClickListener(this);
         mListView.setOnItemClickListener(this);
         initBle();
-    }
-
-    private void initArgs() {
-
     }
 
     //初始化蓝牙
@@ -90,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // 扫描周边设备
     private BleScanCallback<BleDevice> scanCallback = new BleScanCallback<BleDevice>() {
         @Override
         public void onLeScan(final BleDevice device, int rssi, byte[] scanRecord) {
@@ -124,17 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this, "连接异常，异常状态码:" + errorCode, Toast.LENGTH_SHORT).show();
         }
     };
-    private final byte[] hex = "0123456789ABCDEF".getBytes();
 
-    // 从字节数组到十六进制字符串转换
-    private String Bytes2HexString(byte[] b) {
-        byte[] buff = new byte[2 * b.length];
-        for (int i = 0; i < b.length; i++) {
-            buff[2 * i] = hex[(b[i] >> 4) & 0x0f];
-            buff[2 * i + 1] = hex[b[i] & 0x0f];
-        }
-        return new String(buff);
-    }
 
     private void setNotify(BleDevice device) {
         /*连接成功后，设置通知*/
@@ -161,6 +148,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, "onNotifySuccess is success ");
             }
         });
+    }
+
+    private final byte[] hex = "0123456789ABCDEF".getBytes();
+
+    // 从字节数组到十六进制字符串转换
+    private String Bytes2HexString(byte[] b) {
+        byte[] buff = new byte[2 * b.length];
+        for (int i = 0; i < b.length; i++) {
+            buff[2 * i] = hex[(b[i] >> 4) & 0x0f];
+            buff[2 * i + 1] = hex[b[i] & 0x0f];
+        }
+        return new String(buff);
     }
 
     @Override
@@ -201,6 +200,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
-
 }
