@@ -1,6 +1,6 @@
 # androidBle
 
-使用https://github.com/Alex-Jerry/Android-BLE框架。
+使用 https://github.com/Alex-Jerry/Android-BLE 框架，
 此demo只实现了扫描，连接，设置通知，发送数据、读取、接收数据。亲测可用。
  
 ble总结：
